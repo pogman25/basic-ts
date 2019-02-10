@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import './peopleList.css';
 
-function PeopleList({ peopleList }) {
+function PeopleList({ peopleList }: any) {
   return (
     <ul className="people-list">
-      {peopleList.map(i => (
+      {peopleList.map((i: any) => (
         <li className="people-list__item" key={i.name}>
           <h3>{i.name}</h3>
           <ul className="people-list__information">

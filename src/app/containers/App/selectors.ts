@@ -1,15 +1,7 @@
 import { createSelector } from 'reselect';
+import { IStore } from 'src/core/reducers/interfaces';
 
-const appReducer = store => store.people;
-
-export const getError = createSelector(
-	appReducer,
-	i => i.errors
-);
-export const getSuccess = createSelector(
-	appReducer,
-	i => i.success
-);
+const appReducer = (store: IStore) => store.people;
 
 export const getPeopleFromState = createSelector(
 	appReducer,

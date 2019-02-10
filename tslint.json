@@ -1,11 +1,6 @@
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:latest",
-    "tslint-react",
-    "tslint-react-a11y",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:latest", "tslint-react", "tslint-react-a11y", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
     "prettier": true,
@@ -18,8 +13,9 @@
     "ordered-imports": false,
     "jsx-no-multiline-js": false,
     "jsx-boolean-value": ["never"],
-    "semicolon": false,
-    "array-type": false
+    "array-type": false,
+    "no-submodule-imports": false,
+    "no-implicit-dependencies": false
   },
   "rulesDirectory": []
 }

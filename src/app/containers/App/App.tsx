@@ -12,9 +12,10 @@ import {
   getTotalCountFromState,
   getIsFetchingFromState,
 } from './selectors';
+import { IStore } from 'src/core/reducers/interfaces';
 import './App.css';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IStore) => ({
   isFetching: getIsFetchingFromState(state),
   peopleList: getPeopleFromState(state),
   nextPage: getNextPage(state),
@@ -26,7 +27,7 @@ const mapDispatchToProps = {
   showError,
 };
 
-class App extends Component {
+class App extends Component<any, any> {
   componentDidMount() {
     this.getMorePeople();
   }
