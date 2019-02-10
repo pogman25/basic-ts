@@ -14,6 +14,7 @@ import {
 } from './selectors';
 import { IStore } from 'src/core/reducers/interfaces';
 import './App.css';
+import { IMapDispatchToApp, IMapStateToApp } from './interfaces';
 
 const mapStateToProps = (state: IStore) => ({
   isFetching: getIsFetchingFromState(state),
@@ -27,7 +28,7 @@ const mapDispatchToProps = {
   showError,
 };
 
-class App extends Component<any, any> {
+class App extends Component<IMapStateToApp & IMapDispatchToApp, {}> {
   componentDidMount() {
     this.getMorePeople();
   }
