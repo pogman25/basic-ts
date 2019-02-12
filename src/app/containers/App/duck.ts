@@ -1,52 +1,44 @@
 import { createAction, handleActions, Action } from 'redux-actions';
-import { IPeopleReducer } from './interfaces';
+import { INotifyReducer } from './interfaces';
 import { Reducer } from 'react';
-import { AnyAction } from 'redux';
 
 // Actions
 
-export const PEOPLE_REQUEST = 'app/PEOPLE_REQUEST';
-export const PEOPLE_RECEIVE_SUCCESS = 'app/PEOPLE_RECEIVE_SUCCESS';
-export const PEOPLE_RECEIVED = 'app/PEOPLE_RECEIVED';
-export const GET_TOTAL_COUNT = 'app/GET_TOTAL_COUNT';
-export const SET_NEXT_PEOPLE_LINK = 'app/SET_NEXT_PEOPLE_LINK';
+export const SHOW_ERROR = 'SHOW_ERROR';
+export const SHOW_SUCCESS = 'SHOW_SUCCESS';
+export const HIDE_ERROR = 'HIDE_ERROR';
+export const HIDE_SUCCESS = 'HIDE_SUCCESS';
 
 // Action Creators
 
-// People Actions
-export const getPeople = createAction(PEOPLE_REQUEST, () => true);
-export const getPeopleSuccess = createAction(PEOPLE_RECEIVE_SUCCESS);
-export const getPeopleReceived = createAction(PEOPLE_RECEIVED);
-export const setTotalCount = createAction(GET_TOTAL_COUNT);
-export const setNextLink = createAction(SET_NEXT_PEOPLE_LINK);
+// Notification Actions
+
+export const showError = createAction(SHOW_ERROR);
+export const showSuccess = createAction(SHOW_SUCCESS);
+export const hideError = createAction(HIDE_ERROR);
+export const hideSuccess = createAction(HIDE_SUCCESS);
 
 // Reducers
 
-export const initialPeopleReducer: IPeopleReducer = {
-  isFetching: false,
-  people: [],
-  totalCount: 0,
-  nextPage: 1,
+const initialStore: INotifyReducer = {
+  error: '',
+  success: '',
 };
 
-const reducers: Reducer<IPeopleReducer, AnyAction> = handleActions(
+const reducers: Reducer<INotifyReducer, Action<string>> = handleActions(
   {
-    [PEOPLE_REQUEST]: state => ({ ...state, isFetching: true }),
-    [PEOPLE_RECEIVED]: state => ({ ...state, isFetching: false }),
-    [PEOPLE_RECEIVE_SUCCESS]: (state, action: AnyAction) => ({
+    [SHOW_ERROR]: (state, { payload }: Action<string>) => ({
       ...state,
-      people: [...state.people, ...action.payload],
+      error: !!payload ? payload : '',
     }),
-    [GET_TOTAL_COUNT]: (state, action: Action<number>) => ({
+    [HIDE_ERROR]: (state, action: Action<string>) => ({ ...state, error: '' }),
+    [SHOW_SUCCESS]: (state, { payload }: Action<string>) => ({
       ...state,
-      totalCount: action.payload || 0,
+      success: !!payload ? payload : '',
     }),
-    [SET_NEXT_PEOPLE_LINK]: (state, action: Action<number>) => ({
-      ...state,
-      totalCount: action.payload || 0,
-    }),
+    [HIDE_SUCCESS]: (state, action: Action<string>) => ({ ...state, success: '' }),
   },
-  initialPeopleReducer,
+  initialStore,
 );
 
 export default reducers;

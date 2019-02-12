@@ -1,9 +1,9 @@
 {
+  "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
   "defaultSeverity": "error",
   "extends": ["tslint:latest", "tslint-react", "tslint-react-a11y", "tslint-config-prettier"],
   "jsRules": {},
   "rules": {
-    "prettier": true,
     "quotemark": [true, "single", "jsx-double"],
     "no-var-requires": false,
     "trailing-comma": false,
@@ -15,7 +15,14 @@
     "jsx-boolean-value": ["never"],
     "array-type": false,
     "no-submodule-imports": false,
-    "no-implicit-dependencies": false
-  },
-  "rulesDirectory": []
+    "no-implicit-dependencies": false,
+    "no-shadowed-variable": false,
+    "react-unused-props-and-state": [
+      true,
+      {
+        "state-interface-regex": "State$",
+        "props-interface-regex": "Props$"
+      }
+    ]
+  }
 }

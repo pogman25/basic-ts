@@ -1,41 +1,42 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem, { System } from 'react-notification-system';
-import { getError, getSuccess } from './selectors';
-import { hideSuccess, hideError } from './duck';
+import { getError, getSuccess } from '../App/selectors';
+import { hideSuccess, hideError } from '../App/duck';
 import { IStore } from 'src/core/reducers/interfaces';
+import { IMapStateToNotify, IMapDispatchToNotify } from './interfaces';
 
-const mapStateToProps = (state: IStore) => ({
+const mapStateToProps = (state: IStore): IMapStateToNotify => ({
   errorLog: getError(state),
   successLog: getSuccess(state),
 });
 
-const mapDispatchToProps = {
+const mapDispatchToProps: IMapDispatchToNotify = {
   hideError,
   hideSuccess,
 };
 
-class Notification extends Component<any, never> {
+class Notification extends Component<IMapStateToNotify & IMapDispatchToNotify, {}> {
   notiRef = React.createRef<System>();
 
-  componentDidUpdate(prevProps: any) {
-    const { errorLog, successLog } = this.props;
+  componentDidUpdate(prevProps: IMapStateToNotify & IMapDispatchToNotify) {
+    const { errorLog, successLog, hideError, hideSuccess } = this.props;
     const notification = this.notiRef.current;
 
     if (!!notification) {
       if (prevProps.errorLog !== errorLog && !!errorLog) {
         notification.addNotification({
-          message: this.props.errorLog,
+          message: errorLog,
           level: 'error',
-          onRemove: () => this.props.hideError(),
+          onRemove: () => hideError(),
         });
       }
 
       if (prevProps.successLog !== successLog && !!successLog) {
         notification.addNotification({
-          message: this.props.successLog,
+          message: successLog,
           level: 'success',
-          onRemove: () => this.props.hideSuccess(),
+          onRemove: () => hideSuccess(),
         });
       }
     }

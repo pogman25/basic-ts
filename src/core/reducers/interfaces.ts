@@ -1,7 +1,7 @@
-import { IPeopleReducer } from '../../app/containers/App/interfaces';
-import { INotifyReducer } from 'src/app/containers/Notification/interfaces';
+import * as IPeopleInterfaces from 'src/pages/people/interfaces';
+import * as IAppInterfaces from 'src/app/interfaces';
 
 export interface IStore {
-  people: IPeopleReducer;
-  notify: INotifyReducer;
+  people: IPeopleInterfaces.IPeopleReducer;
+  notify: IAppInterfaces.INotifyReducer;
 }

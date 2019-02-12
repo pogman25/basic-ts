@@ -1,9 +1,9 @@
 import { combineReducers, AnyAction, Reducer } from 'redux';
-import people from '../../app/containers/App/duck';
-import notify from '../../app/containers/Notification/duck';
+import notify from 'src/app/containers/App/duck';
+import people from 'src/pages/people/containers/People/duck';
 import { IStore } from './interfaces';
-import { IPeopleReducer } from 'src/app/containers/App/interfaces';
-import { INotifyReducer } from 'src/app/containers/Notification/interfaces';
+import { IPeopleReducer } from 'src/pages/people/containers/People/interfaces';
+import { INotifyReducer } from 'src/app/containers/App/interfaces';
 
 const reducer = combineReducers<IStore, AnyAction>({
   people: people as Reducer<IPeopleReducer, AnyAction>,

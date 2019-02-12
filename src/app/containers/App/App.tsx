@@ -1,48 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Switch, Route } from 'react-router-dom';
+import People from 'src/pages/people';
 import logo from './logo.svg';
 import Notification from '../Notification';
-import PeopleList from '../../components/PeopleList';
-import Preload from '../../components/Preload';
-import { getPeople } from './duck';
-import { showError } from '../Notification/duck';
-import {
-  getPeopleFromState,
-  getNextPage,
-  getTotalCountFromState,
-  getIsFetchingFromState,
-} from './selectors';
-import { IStore } from 'src/core/reducers/interfaces';
+import { showError } from './duck';
 import './App.css';
-import { IMapDispatchToApp, IMapStateToApp } from './interfaces';
-
-const mapStateToProps = (state: IStore) => ({
-  isFetching: getIsFetchingFromState(state),
-  peopleList: getPeopleFromState(state),
-  nextPage: getNextPage(state),
-  totalCount: getTotalCountFromState(state),
-});
+import { IMapDispatchToApp  } from './interfaces';
 
 const mapDispatchToProps = {
-  getPeople,
   showError,
 };
 
-class App extends Component<IMapStateToApp & IMapDispatchToApp, {}> {
-  componentDidMount() {
-    this.getMorePeople();
-  }
-
-  getMorePeople = () => {
-    this.props.getPeople();
-  };
-
+class App extends Component<IMapDispatchToApp, {}> {
   showError = () => {
     this.props.showError('teset error');
   };
 
   render() {
-    const { peopleList, nextPage, isFetching } = this.props;
     return (
       <div className="App">
         <header className="App-header">
@@ -50,11 +25,9 @@ class App extends Component<IMapStateToApp & IMapDispatchToApp, {}> {
           <p>Пример работы с редюсерами</p>
           <button onClick={this.showError}>show error</button>
         </header>
-        <PeopleList peopleList={peopleList} />
-        <div>
-          {!!nextPage && !isFetching && <button onClick={this.getMorePeople}>больше</button>}
-          {isFetching && <Preload />}
-        </div>
+        <Switch>
+          <Route path="/" exact component={People} />
+        </Switch>
         <Notification />
       </div>
     );
@@ -62,6 +35,6 @@ class App extends Component<IMapStateToApp & IMapDispatchToApp, {}> {
 }
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps,
 )(App);
