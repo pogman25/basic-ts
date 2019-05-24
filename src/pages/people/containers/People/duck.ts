@@ -1,6 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
 import { IPeopleReducer, IPeopleModel } from './interfaces';
-import { Reducer } from 'react';
 import { AnyAction } from 'redux';
 
 // Actions
@@ -37,7 +36,7 @@ export const initialPeopleReducer: IPeopleReducer = {
   nextPage: 1,
 };
 
-const reducers: Reducer<IPeopleReducer, AnyAction> = handleActions<IPeopleReducer, AnyAction>(
+const reducers = handleActions<IPeopleReducer, AnyAction>(
   {
     [PEOPLE_REQUEST]: state => ({ ...state, isFetching: true }),
     [PEOPLE_RECEIVED]: state => ({ ...state, isFetching: false }),
@@ -46,7 +45,7 @@ const reducers: Reducer<IPeopleReducer, AnyAction> = handleActions<IPeopleReduce
         return {
           ...state,
           peopleByName: { ...state.peopleByName, ...action.payload.byName },
-          peopleNames: [...state.peopleNames, ...action.payload.names]
+          peopleNames: Array.from(new Set([...state.peopleNames, ...action.payload.names])),
         };
       }
       return state;
@@ -57,7 +56,7 @@ const reducers: Reducer<IPeopleReducer, AnyAction> = handleActions<IPeopleReduce
     }),
     [SET_NEXT_PEOPLE_LINK]: (state, action) => ({
       ...state,
-      totalCount: Number(action.payload,)
+      nextPage: Number(action.payload,)
     }),
   },
   initialPeopleReducer,
