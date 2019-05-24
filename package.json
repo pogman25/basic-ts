@@ -9,6 +9,7 @@
     "@types/react-dom": "^16.8.4",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "node-sass": "^4.12.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
@@ -34,7 +35,8 @@
     "extends": "react-app"
   },
   "browserslist": [
-    ">0.2%",
+    ">1%",
+    "last 2 version",
     "not dead",
     "not ie <= 11",
     "not op_mini all"

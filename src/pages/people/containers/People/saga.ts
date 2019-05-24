@@ -1,6 +1,6 @@
 import { all, call, put, takeLatest, select } from 'redux-saga/effects';
-import * as notify from 'src/app/containers/App/duck';
-import callAPI from 'src/app/containers/App/saga';
+import * as notify from 'src/app/duck';
+import callAPI from 'src/app/saga';
 import * as duck from './duck';
 import { getNextPage, getTotalCountFromState } from './selectors';
 import { IPeopleModel } from './interfaces';
