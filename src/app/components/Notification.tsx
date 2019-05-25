@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem, { System } from 'react-notification-system';
-import { getError, getSuccess } from './selectors';
-import { hideSuccess, hideError } from './duck';
+import { getError, getSuccess } from '../selectors';
+import { hideSuccess, hideError } from '../duck';
 import { IStore } from 'src/core/reducers/interfaces';
-import { IMapStateToNotify, IMapDispatchToNotify } from './interfaces';
+import { IMapStateToNotify, IMapDispatchToNotify } from '../interfaces';
 
 const mapStateToProps = (state: IStore): IMapStateToNotify => ({
   errorLog: getError(state),

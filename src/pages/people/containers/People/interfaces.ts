@@ -15,8 +15,6 @@ export interface IMapStateToApp {
 
 export interface IMapDispatchToApp {
   getPeople: () => void;
-  showError: (message: string) => void;
-  deletePerson: (name: string) => void;
 }
 
 export interface IPeopleModel {
