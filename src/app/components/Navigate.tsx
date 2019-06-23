@@ -7,8 +7,8 @@ const componentName = () => {
             <ul>
                 <li><NavLink to="/" >Главная</NavLink></li>
                 <li><NavLink to="/works" >Работы</NavLink></li>
-                <li><NavLink to="/contacts" >Работы</NavLink></li>
-                <li><NavLink to="/catalog" >Работы</NavLink></li>
+                <li><NavLink to="/contacts" >Контакты</NavLink></li>
+                <li><NavLink to="/catalog" >Заказать</NavLink></li>
             </ul>
         </nav>
     )
