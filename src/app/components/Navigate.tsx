@@ -5,10 +5,10 @@ const componentName = () => {
     return (
         <nav>
             <ul>
-                <li><NavLink to="/" >Главная</NavLink></li>
-                <li><NavLink to="/works" >Работы</NavLink></li>
-                <li><NavLink to="/contacts" >Контакты</NavLink></li>
-                <li><NavLink to="/catalog" >Заказать</NavLink></li>
+                <li><NavLink to="/" >Пользователи</NavLink></li>
+                <li><NavLink to="/projects" >Проекты</NavLink></li>
+                <li><NavLink to="/stack" >Стек</NavLink></li>
+                <li><NavLink to="/mentors" >Наставники</NavLink></li>
             </ul>
         </nav>
     )

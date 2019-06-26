@@ -3,8 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Users from 'src/pages/users';
 
 import logo from '../logo.svg';
-import Notification from '../containers/Notification';
-import Navigate from './Navigate';
+import Notification from '../containers/notification';
+import Navigate from './navigate';
 import s from '../app.module.scss';
 
 function App() {
@@ -12,7 +12,6 @@ function App() {
     <div className={s.app}>
       <header className={s.appHeader}>
         <img src={logo} className={s.appLogo} alt="logo" />
-        <p>Пример работы с редюсерами</p>
         <Navigate />
       </header>
       <Switch>

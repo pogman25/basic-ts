@@ -1,4 +1,4 @@
-import App from './components/App';
+import App from './components/app';
 import rootReducer from './duck/duck';
 import rootSaga from './duck/saga';
 import * as rootSelectors from './duck/selectors';
