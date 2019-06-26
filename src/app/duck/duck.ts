@@ -1,6 +1,5 @@
 import { createAction, handleActions, Action } from 'redux-actions';
 import { INotifyReducer } from './interfaces';
-import { Reducer } from 'react';
 
 // Actions
 
@@ -25,7 +24,7 @@ const initialStore: INotifyReducer = {
   success: '',
 };
 
-const reducers: Reducer<INotifyReducer, Action<string>> = handleActions(
+const reducers = handleActions(
   {
     [SHOW_ERROR]: (state, { payload }: Action<string>) => ({
       ...state,

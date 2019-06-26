@@ -1,6 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import { AxiosRequestConfig } from 'axios';
-import fetchData from '../utils/fetch';
+import fetchData from '../../utils/fetch';
 import * as duck from './duck';
 
 // saga запросов к серверу

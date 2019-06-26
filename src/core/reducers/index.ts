@@ -1,14 +1,10 @@
-import { combineReducers, AnyAction, Reducer } from 'redux';
-import people from 'src/pages/people/containers/People/duck';
-import { IPeopleReducer } from 'src/pages/people/containers/People/interfaces';
-import notify from '../../app/duck';
-import users from '../../pages/catalog/duck/duck'
-import { INotifyReducer } from '../../app/interfaces';
+import { combineReducers } from 'redux';
+import notify from '../../app/duck/duck';
+import users from '../../pages/users/duck/user-duck'
 
 const reducer = combineReducers({
-  people: people as Reducer<IPeopleReducer, AnyAction>,
   users,
-  notify: notify as Reducer<INotifyReducer, AnyAction>,
+  notify,
 });
 
 export default reducer;
