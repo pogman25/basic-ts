@@ -1,7 +1,10 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosRequestConfig } from 'axios';
 import fetchData from '../../utils/fetch';
-import * as duck from './duck';
+import * as duck from './noty-duck';
+import * as locationsDuck from './locations-duck';
+import * as stackDuck from './stack-duck';
+import { ILocations, IStack } from './interfaces';
 
 // saga запросов к серверу
 export default function* callAPI(url: string, params: AxiosRequestConfig) {
@@ -32,4 +35,57 @@ export default function* callAPI(url: string, params: AxiosRequestConfig) {
       }
     }
   }
+}
+
+function* fetchLocations() {
+  try {
+    const resp = yield call(callAPI, '/api/v1/locations', {});
+    if (resp.status === 200) {
+      const { data } = resp;
+
+      const locationsByIds = (data.locations as ILocations[]).reduce<{
+        [key: string]: ILocations;
+      }>((sum, item) => {
+        sum[item.id] = item;
+        return sum;
+      }, {});
+      const locationsIds = (data.locations as ILocations[]).map(item => item.id);
+      yield put(locationsDuck.fetchLocationsSuccess({ locationsIds, locationsByIds }));
+    } else {
+      yield put(duck.showError('Что-то пошло не так'));
+    }
+  } catch (error) {
+    yield put(duck.showError(`Что-то пошло не так: ${error}`));
+  } finally {
+    yield put(locationsDuck.fetchLocationsReceived());
+  }
+}
+
+function* fetchStack() {
+  try {
+    const resp = yield call(callAPI, '/api/v1/stack', {});
+    if (resp.status === 200) {
+      const { data } = resp;
+
+      const stackByIds = (data.stack as IStack[]).reduce<{
+        [key: string]: IStack;
+      }>((sum, item) => {
+        sum[item.id] = item;
+        return sum;
+      }, {});
+      const stackIds = (data.stack as IStack[]).map(item => item.id);
+      yield put(stackDuck.fetchStackSuccess({ stackIds, stackByIds }));
+    } else {
+      yield put(duck.showError('Что-то пошло не так'));
+    }
+  } catch (error) {
+    yield put(duck.showError(`Что-то пошло не так: ${error}`));
+  } finally {
+    yield put(stackDuck.fetchStackReceived());
+  }
+}
+
+export function* locationsSaga() {
+  yield takeLatest(locationsDuck.fetchLocations, fetchLocations);
+  yield takeLatest(stackDuck.fetchStack, fetchStack);
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import NotificationSystem, { System } from 'react-notification-system';
 import { getError, getSuccess } from '../duck/selectors';
-import { hideSuccess, hideError } from '../duck/duck';
+import { hideSuccess, hideError } from '../duck/noty-duck';
 import { IStore } from 'src/core/reducers/interfaces';
 import { IMapStateToNotify, IMapDispatchToNotify } from '../duck/interfaces';
 

@@ -4,4 +4,6 @@ import * as IAppInterfaces from 'src/app/duck/interfaces';
 export interface IStore {
   users: IUserReducer;
   notify: IAppInterfaces.INotifyReducer;
+  locations: IAppInterfaces.ILocationsReducer;
+  stack: IAppInterfaces.IStackReducer;
 }

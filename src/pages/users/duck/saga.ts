@@ -1,5 +1,5 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import * as notify from 'src/app/duck/duck';
+import * as notify from 'src/app/duck/noty-duck';
 import callAPI from 'src/app/duck/saga';
 import * as duck from './user-duck';
 import { IUsers } from './interfaces';

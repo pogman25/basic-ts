@@ -5,7 +5,7 @@ import rootReducer from '../reducers';
 
 const sagaMiddleware = createSagaMiddleware();
 const logger = createLogger({
-  collapsed: true
+  collapsed: true,
 });
 
 export const configureStore = () => {
@@ -17,8 +17,8 @@ export const configureStore = () => {
             applyMiddleware(sagaMiddleware, logger),
             (window as any).__REDUX_DEVTOOLS_EXTENSION__
               ? (window as any).__REDUX_DEVTOOLS_EXTENSION__()
-              : (f: any) => f
-          )
+              : (f: any) => f,
+          ),
         )
       : createStore(rootReducer, compose(applyMiddleware(sagaMiddleware)));
 
@@ -26,6 +26,6 @@ export const configureStore = () => {
     ...store,
     runSaga: sagaMiddleware.run,
     injectedSagas: {},
-    close: () => store.dispatch(END)
+    close: () => store.dispatch(END),
   };
 };

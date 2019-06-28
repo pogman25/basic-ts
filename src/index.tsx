@@ -6,9 +6,14 @@ import { configureStore } from './core/configureStore';
 import saga from './core/sagas';
 import * as serviceWorker from './core/serviceWorker';
 import App from './app';
+import { fetchLocations } from './app/duck/locations-duck';
+import { fetchStack } from './app/duck/stack-duck';
 
 const store = configureStore();
 store.runSaga(saga);
+
+store.dispatch(fetchLocations());
+store.dispatch(fetchStack());
 
 ReactDOM.render(
   <Provider store={store}>

@@ -14,8 +14,4 @@ const componentName = () => {
     )
 }
 
-componentName.propTypes = {
-
-}
-
 export default componentName
