@@ -5,13 +5,6 @@ interface IMentor {
   image: string;
 }
 
-interface IStack {
-  id: number;
-  icon: string;
-  stack: string;
-  points: string;
-}
-
 interface IProject {
   id: number;
   name: string;
@@ -33,8 +26,10 @@ export interface IUsers {
   salary: string;
   mentor: IMentor;
   active: true;
+  english: string;
+  location: string;
   manager: IMentor;
-  stack: IStack[];
+  stack: { id: number; points: string }[];
   projects: IProject[];
 }
 
