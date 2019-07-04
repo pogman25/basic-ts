@@ -1,23 +1,22 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { getUsers } from '../duck/user-duck'
-import { IStore } from 'src/core/reducers/interfaces';
+
 import { userSelectors } from '../index';
-import { IUserProps } from './interfaces'
 import Stack from '../components/stack'
 
-const mapStateToProps = (state: IStore) => ({
-    users: userSelectors.getUserState(state)
-})
 
-const mapDispatchToProps = {
-    getUsers,
-}
+const Users = () => {
+    const users = useSelector(userSelectors.getUserState);
+    const dispatch = useDispatch();
+    const fetchUsers = React.useCallback(
+        () => dispatch(getUsers()),
+        [dispatch]
+      )
 
-const Users: React.SFC<IUserProps> = ({ users, getUsers }) => {
     React.useEffect(() => {
-        getUsers();
-    }, [getUsers])
+        fetchUsers();
+    }, [fetchUsers])
 
     return (
         <div>
@@ -41,4 +40,4 @@ const Users: React.SFC<IUserProps> = ({ users, getUsers }) => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(Users));
+export default React.memo(Users);
