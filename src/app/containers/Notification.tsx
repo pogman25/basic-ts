@@ -1,53 +1,44 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import * as React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import NotificationSystem, { System } from 'react-notification-system';
 import { getError, getSuccess } from '../duck/selectors';
 import { hideSuccess, hideError } from '../duck/noty-duck';
-import { IStore } from 'src/core/reducers/interfaces';
-import { IMapStateToNotify, IMapDispatchToNotify } from '../duck/interfaces';
 
-const mapStateToProps = (state: IStore): IMapStateToNotify => ({
-  errorLog: getError(state),
-  successLog: getSuccess(state),
-});
+const notiRef = React.createRef<System>();
 
-const mapDispatchToProps: IMapDispatchToNotify = {
-  hideError,
-  hideSuccess,
-};
+const useNotify = () => {
+  const errorLog = useSelector(getError);
+  const successLog = useSelector(getSuccess);
+  const dispatch = useDispatch();
+  const hideErrorMsg = React.useCallback(() => dispatch(hideError()), [dispatch])
+  const hideSuccessMsg = React.useCallback(() => dispatch(hideSuccess()), [dispatch])
+  const notification = notiRef.current;
 
-class Notification extends Component<IMapStateToNotify & IMapDispatchToNotify, {}> {
-  notiRef = React.createRef<System>();
-
-  componentDidUpdate(prevProps: IMapStateToNotify & IMapDispatchToNotify) {
-    const { errorLog, successLog, hideError, hideSuccess } = this.props;
-    const notification = this.notiRef.current;
-
-    if (!!notification) {
-      if (prevProps.errorLog !== errorLog && !!errorLog) {
-        notification.addNotification({
-          message: errorLog,
-          level: 'error',
-          onRemove: () => hideError(),
-        });
-      }
-
-      if (prevProps.successLog !== successLog && !!successLog) {
-        notification.addNotification({
-          message: successLog,
-          level: 'success',
-          onRemove: () => hideSuccess(),
-        });
-      }
+  React.useEffect(() => {
+    if (!!notification && !!errorLog) {
+      notification.addNotification({
+        message: errorLog,
+        level: 'error',
+        onRemove: () => hideErrorMsg(),
+      });
     }
-  }
+  }, [errorLog, hideErrorMsg, notification])
 
-  render() {
-    return <NotificationSystem ref={this.notiRef} />;
-  }
+  React.useEffect(() => {
+    if (!!notification && !!successLog) {
+      notification.addNotification({
+        message: successLog,
+        level: 'success',
+        onRemove: () => hideSuccessMsg(),
+      });
+
+    }
+  }, [successLog, hideSuccessMsg, notification])
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Notification);
+const Notification = () => {
+  useNotify();
+  return <NotificationSystem ref={notiRef} />;
+}
+
+export default React.memo(Notification);
